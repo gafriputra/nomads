@@ -146,11 +146,11 @@ class CheckoutController extends Controller
 
         // kirim email ke usernya
         // email ditulis ->email boleh, gak ditulis boleh, karena sudah otomatis mencari kolom email ditabel
-    //     Mail::to($transaction->user)->send(
-    //         // dikirim ke sini isi variabelnya
-    //         new TransactionSuccess($transaction)
-    //     );
+        Mail::to($transaction->user)->send(
+            // dikirim ke sini isi variabelnya
+            new TransactionSuccess($transaction)
+        );
 
-    //     return view('pages.success');
+        return view('pages.success');
     // }
 }
