@@ -158,25 +158,25 @@
               <tr>
                 <th width="50%">Additional VISA</th>
                 <td width="50%" class="text-right">
-                  $ {{ $item->additional_visa }},00
+                  Rp. {{ $item->additional_visa }},00
                 </td>
               </tr>
               <tr>
                 <th width="50%">Trip Price</th>
                 <td width="50%" class="text-right">
-                  $ {{ $item->travel_package->price }},00 / person
+                  Rp. {{ $item->travel_package->price }},00 / person
                 </td>
               </tr>
               <tr>
                 <th width="50%">Sub Total</th>
                 <td width="50%" class="text-right">
-                  $ {{ $item->transaction_total }},00
+                  Rp. {{ $item->transaction_total }},00
                 </td>
               </tr>
               <tr>
                 <th width="50%">Total (+Unique)</th>
                 <td width="50%" class="text-right text-total">
-                  <span class="text-blue">$ {{ $item->transaction_total }},</span
+                  <span class="text-blue">Rp. {{ $item->transaction_total }},</span
                   ><span class="text-orange">{{ mt_rand(0,99) }}</span>
                 </td>
               </tr>
@@ -185,47 +185,13 @@
             <hr />
             <h2>Payment Instructions</h2>
             <p class="payment-instructions">
-              Please complete your payment before to continue the wonderful
-              trip
+              You will be redirected to another page to gopay
             </p>
-            <div class="bank">
-              <div class="bank-item pb-3">
-                <img
-                  src="{{ url('frontend/images/ic_bank.png') }}"
-                  alt=""
-                  class="bank-image"
-                />
-                <div class="description">
-                  <h3>PT Nomads ID</h3>
-                  <p>
-                    0881 8829 8800
-                    <br />
-                    Bank Central Asia
-                  </p>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              <div class="bank-item pb-3">
-                <img
-                  src="{{ url('frontend/images/ic_bank.png') }}"
-                  alt=""
-                  class="bank-image"
-                />
-                <div class="description">
-                  <h3>PT Nomads ID</h3>
-                  <p>
-                    0899 8501 7888
-                    <br />
-                    Bank HSBC
-                  </p>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-            </div>
+            <img src="{{url('frontend/images/gopay.png')}}" class="w-100" srcset="">
           </div>
           <div class="join-container">
             <a href="{{ route('checkout-success', $item->id) }}" class="btn btn-block btn-join-now mt-3 py-2">
-              I Have Made Payment
+              Process Payment
             </a>
           </div>
           <div class="text-center mt-3">

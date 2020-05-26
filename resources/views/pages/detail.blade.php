@@ -37,11 +37,11 @@
                             <img
                                 class="xzoom"
                                 id="xzoom-default"
-                                src="{{Storage::url($item->galleries->first()->image)}}"
-                                xoriginal="{{Storage::url($item->galleries->first()->image)}}"
+                                src="{{Storage::url($item->galleries->last()->image)}}"
+                                xoriginal="{{Storage::url($item->galleries->last()->image)}}"
                             />
                             <div class="xzoom-thumbs">
-                                @foreach ($item->galleries as $gallery)
+                                @foreach ($item->galleries->skip(1) as $gallery)
                                     <a href="{{Storage::url($gallery->image)}}"
                                     ><img
                                         class="xzoom-gallery"
@@ -119,7 +119,7 @@
                         </tr>
                         <tr>
                         <th width="50%">Price</th>
-                        <td width="50%" class="text-right">{{$item->price}},00 / person</td>
+                        <td width="50%" class="text-right">Rp. {{$item->price}},00 / person</td>
                         </tr>
                     </table>
                     </div>
@@ -136,7 +136,7 @@
 
                         {{-- arahkan pakai fungsi route dengan pakai namaroutenya --}}
                         <a href="{{route('login')}}" class="btn btn-block btn-join-now mt-3 py-2"
-                            >Login or Register to Jpin</a
+                            >Login or Register to Join</a
                         >
                         @endguest
                     </div>

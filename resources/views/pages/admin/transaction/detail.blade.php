@@ -55,15 +55,16 @@
                        <table class="table-bordered">
                            <tr>
                                <th>ID</th>
-                               <th>Nama</th>
+                               <th>Username</th>
                                <th>Nationality</th>
                                <th>Visa</th>
                                <th>DOE Passport</th>
                            </tr>
                            @foreach ($item->details as $detail)
+                           {{$detail->username}}
                             <tr>
                                 <td>{{$detail->id}}</td>
-                                <td>{{$detail->userame}}</td>
+                                <td>{{$detail->username}}</td>
                                 <td>{{$detail->nationality}}</td>
                                 {{-- pakai if ternary --}}
                                 <td>{{$detail->is_visa?'30 Days':'N/A'}}</td>

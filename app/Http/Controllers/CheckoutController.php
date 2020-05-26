@@ -14,7 +14,7 @@ use App\TravelPackage;
 
 // untuk memformat tanggal
 use Carbon\Carbon;
-
+use Exception;
 use Illuminate\Http\Request;
 // untuk cek auth
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Auth;
 // panggil librarry midtrans
 use Midtrans\Config;
 use Midtrans\Snap;
+
+
 
 class CheckoutController extends Controller
 {
@@ -110,21 +112,21 @@ class CheckoutController extends Controller
         $transaction = Transaction::with(['details','travel_package.galleries','user'])->findOrFail($id);
         $transaction->transaction_status = 'PENDING';
 
-        $transaction->save();
+        // $transaction->save();
 
         // set konnfigrasi midtrans ngambil dari config/midrtrans.php
         Config::$serverKey = config('midtrans.serverKey');
-        Config::$isProdction = config('midtrans.isProdction');
+        Config::$isProduction = config('midtrans.isProduction');
         Config::$isSanitized = config('midtrans.isSanitized');
         Config::$is3ds = config('midtrans.is3ds');
 
         // bat params untuk dikirim ke midtrans
         $midtrans_params = [
             'transaction_details' =>[
-                'order_id' => 'MIDTRANS'.$transaction->id,
+                'order_id' => 'GPA-'.$transaction->id,
                 'gross_amount' => (int) $transaction->transaction_total //ditetapkan harus int yang dikirim
             ],
-            'customer_detail' =>[
+            'customer_details' =>[
                 'first_name' => $transaction->user->name,
                 'email' => $transaction->user->email
             ],
@@ -135,7 +137,7 @@ class CheckoutController extends Controller
         // untuk jika berhasil dan gagal
         try {
             // Get Snap Payment Page URL
-            $paymentUrl = Snap::createTransaction($params)->redirect_url;
+            $paymentUrl = Snap::createTransaction($midtrans_params)->redirect_url;
 
             // Redirect to Snap Payment Page
             header('Location: ' . $paymentUrl);
@@ -144,13 +146,8 @@ class CheckoutController extends Controller
             echo $e->getMessage();
           }
 
-        // kirim email ke usernya
-        // email ditulis ->email boleh, gak ditulis boleh, karena sudah otomatis mencari kolom email ditabel
-        Mail::to($transaction->user)->send(
-            // dikirim ke sini isi variabelnya
-            new TransactionSuccess($transaction)
-        );
 
-        return view('pages.success');
-    // }
+
+        // return view('pages.success');
+    }
 }
